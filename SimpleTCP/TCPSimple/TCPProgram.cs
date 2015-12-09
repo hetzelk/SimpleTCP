@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.ComponentModel;
 
-namespace TCPSimple2
+namespace TCPProgram
 {
 
     public class TCPProgram<T>
@@ -29,10 +29,17 @@ namespace TCPSimple2
                 ArrayBytes = memStream.ToArray();
                 //Console.WriteLine(Encoding.Default.GetString(ArrayBytes));
                 //Console.ReadLine();
-                convertToObject(ArrayBytes);
+                //convertToObject(ArrayBytes);
+                returnByte(ArrayBytes);
             }
 
         }
+
+        public byte[] returnByte(byte[] array)
+        {
+            return array;
+        }
+
         public void convertToObject(byte[] array)
         {
             MemoryStream memStream = new MemoryStream();
@@ -41,10 +48,7 @@ namespace TCPSimple2
             memStream.Seek(0, SeekOrigin.Begin);
             Object obj = (Object)formatter.Deserialize(memStream);
             originalObj = obj;
-            Console.WriteLine(originalObj);
-            Console.ReadLine();
-
-
+            //Console.WriteLine(originalObj);
         }
     }
 }
