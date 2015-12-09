@@ -1,0 +1,2 @@
+C:\Users\Keith Hetzel\Desktop\4. dev code camp\C#\SimpleTCP\SimpleTCP\bin\Debug\SimpleTCP.exe.config
+C:\Users\Keith Hetzel\Documents\GitHub\SimpleTCP\SimpleTCP\SimpleTCP\bin\Debug\SimpleTCP.exe.config
