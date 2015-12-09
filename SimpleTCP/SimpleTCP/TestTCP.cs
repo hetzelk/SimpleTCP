@@ -12,9 +12,15 @@ namespace TCPSimple1
 {
     class TestTCP
     {     
-        public static void testMainTCP()
+        public static void Main()
         {
-            TCPProgram<int> TestInt = new TCPProgram<int>(234999);
+            TCPProgram<int> TestInt = new TCPProgram<int>(23999);
+
+            TCPProgram<ulong> TestBigInt = new TCPProgram<ulong>(234996654546549);
+
+            TCPProgram<string> TestString = new TCPProgram<string>("abcdefghijk");
+
+            //TCPProgram<int> TestInt = new TCPProgram<int>(234999);
         }
     }
 }

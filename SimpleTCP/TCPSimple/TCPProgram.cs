@@ -9,29 +9,43 @@ using System.ComponentModel;
 
 namespace TCPSimple2
 {
+
     public class TCPProgram<T>
     {
+        public byte[] ArrayBytes;
+        public object originalObj;
+
         public TCPProgram(T input)
         {
-            runConversion(input);
+            if (input == null)
+            {
+                Console.WriteLine("null");
+            }
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (MemoryStream memStream = new MemoryStream())
+            {
+                formatter.Serialize(memStream, input);
+                ArrayBytes = memStream.ToArray();
+                //Console.WriteLine(Encoding.Default.GetString(ArrayBytes));
+                //Console.ReadLine();
+                convertToObject(ArrayBytes);
+            }
 
         }
-        
-        public void runConversion(T input)
+        public void convertToObject(byte[] array)
         {
-            byte[] answer = Switcher(input);
-            Console.WriteLine(answer);
-        }
+            MemoryStream memStream = new MemoryStream();
+            BinaryFormatter formatter = new BinaryFormatter();
+            memStream.Write(array, 0, array.Length);
+            memStream.Seek(0, SeekOrigin.Begin);
+            Object obj = (Object)formatter.Deserialize(memStream);
+            originalObj = obj;
+            Console.WriteLine(originalObj);
+            Console.ReadLine();
 
-        private byte[] Switcher(T tcpitem)
-        {
-            if (tcpitem == null)
-                return null;
-            BinaryFormatter bf = new BinaryFormatter();
-            MemoryStream ms = new MemoryStream();
-            bf.Serialize(ms, tcpitem);
-            return ms.ToArray();
-        }
 
+        }
     }
 }
+
