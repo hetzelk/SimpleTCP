@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTCP", "SimpleTCP\SimpleTCP.csproj", "{1480979D-F38E-40C5-B029-1FE8A96D876D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPConsole", "SimpleTCP\TCPConsole.csproj", "{1480979D-F38E-40C5-B029-1FE8A96D876D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPSimple", "TCPSimple\TCPSimple.csproj", "{759F84CF-DE6D-4D06-87F2-5302BFFE8B33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1480979D-F38E-40C5-B029-1FE8A96D876D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1480979D-F38E-40C5-B029-1FE8A96D876D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1480979D-F38E-40C5-B029-1FE8A96D876D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{759F84CF-DE6D-4D06-87F2-5302BFFE8B33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{759F84CF-DE6D-4D06-87F2-5302BFFE8B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{759F84CF-DE6D-4D06-87F2-5302BFFE8B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{759F84CF-DE6D-4D06-87F2-5302BFFE8B33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

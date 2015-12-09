@@ -1,2 +1,7 @@
 C:\Users\Keith Hetzel\Desktop\4. dev code camp\C#\SimpleTCP\SimpleTCP\bin\Debug\SimpleTCP.exe.config
 C:\Users\Keith Hetzel\Documents\GitHub\SimpleTCP\SimpleTCP\SimpleTCP\bin\Debug\SimpleTCP.exe.config
+C:\Users\Keith Hetzel\Documents\GitHub\SimpleTCP\SimpleTCP\SimpleTCP\obj\Debug\SimpleTCP.csprojResolveAssemblyReference.cache
+C:\Users\Keith Hetzel\Documents\GitHub\SimpleTCP\SimpleTCP\SimpleTCP\bin\Debug\SimpleTCP.exe
+C:\Users\Keith Hetzel\Documents\GitHub\SimpleTCP\SimpleTCP\SimpleTCP\bin\Debug\SimpleTCP.pdb
+C:\Users\Keith Hetzel\Documents\GitHub\SimpleTCP\SimpleTCP\SimpleTCP\obj\Debug\SimpleTCP.exe
+C:\Users\Keith Hetzel\Documents\GitHub\SimpleTCP\SimpleTCP\SimpleTCP\obj\Debug\SimpleTCP.pdb
