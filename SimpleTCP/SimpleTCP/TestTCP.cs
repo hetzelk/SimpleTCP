@@ -16,19 +16,18 @@ namespace TCPConsole
 
         public static void Main()
         {
+            int sourceport = 1;
+            TCPHeaderFunction(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, ecn, controlbits, window, checksum, urgentpointer, optionsandpadding, data);
+
+                /*
             TCPProgram<int> TestInt = new TCPProgram<int>(23999);
-
             TCPProgram<ulong> TestBigInt = new TCPProgram<ulong>(234996654546549);
-
             TCPProgram<string> TestString = new TCPProgram<string>("abcdefghijk");
-            
             Console.WriteLine(TestInt);
             Console.WriteLine(TestBigInt);
             Console.WriteLine(TestString);
-
             convertToObject(TestString);
-
-            Console.ReadLine();
+            Console.ReadLine();*/
             
         }
 
