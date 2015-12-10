@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 
-namespace TCPSimple
+namespace TCPProgram
 {
     public class TCPHeader
     {
-        public object TCPHeaderFunction(int sourceport, int destinationport, int sequencenumber, int acknowledgmentnumber, int dataoffset, int ecn, int controlbits, int window, int checksum, int urgentpointer, int optionsandpadding, int data)
+        public TCPHeader(ulong sourceport, int destinationport, int sequencenumber, int acknowledgmentnumber, int dataoffset, int ecn, int controlbits, int window, int checksum, int urgentpointer, int optionsandpadding, int data)
         {
             BitArray SourcePort = new BitArray(BitConverter.GetBytes(sourceport));//16 bits
             BitArray DestinationPort = new BitArray(BitConverter.GetBytes(destinationport));//16 bits
@@ -44,10 +44,14 @@ namespace TCPSimple
             ListTheBits.Add(OptionsAndPadding);
             ListTheBits.Add(Data);
 
-            object returnlist = ListTheBits;
-
-            return returnlist;
+            object bitlist = ListTheBits;
+            returnList(bitlist);
         }
-        
+
+        public object returnList(object bitlist)
+        {
+            return bitlist;
+        }
+
     }
 }

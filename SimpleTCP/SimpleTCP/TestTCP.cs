@@ -16,9 +16,22 @@ namespace TCPConsole
 
         public static void Main()
         {
-            int sourceport = 1;
-            TCPHeaderFunction(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, ecn, controlbits, window, checksum, urgentpointer, optionsandpadding, data);
+            ulong sourceport = 1;
+            int destinationport = 1;
+            int sequencenumber = 1;
+            int acknowledgmentnumber = 1;
+            int dataoffset = 1;
+            int ecn = 1;
+            int controlbits = 1;
+            int window = 1;
+            int checksum = 1;
+            int urgentpointer = 1;
+            int optionsandpadding = 1;
+            int data = 1;
 
+            TCPHeader tcpheader = new TCPHeader(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, ecn, controlbits, window, checksum, urgentpointer, optionsandpadding, data);
+            Console.WriteLine(tcpheader);
+            Console.ReadLine();
                 /*
             TCPProgram<int> TestInt = new TCPProgram<int>(23999);
             TCPProgram<ulong> TestBigInt = new TCPProgram<ulong>(234996654546549);
