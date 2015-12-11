@@ -9,7 +9,6 @@ using System.ComponentModel;
 
 namespace TCPProgram
 {
-
     public class TCPProgram<T>
     {
         public byte[] ArrayBytes;

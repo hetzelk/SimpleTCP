@@ -17,25 +17,20 @@ namespace TCPConsole
 
         public static void Main()
         {
-            IPAddress sourceaddress = IPAddress.Parse("12.127.92.98");
-            IPAddress destinationaddress = IPAddress.Parse("12.127.92.98");
+            TCPInfo tcpinfo = new TCPInfo();
 
-            IPAddress sourceport = sourceaddress;
-            IPAddress destinationport = destinationaddress;
-            int sequencenumber = 1;
-            int acknowledgmentnumber = 1;
-            int dataoffset = 1;
-            int reserved = 1;
-            int ecn = 1;
-            int controlbits = 1;
-            int window = 1;
-            int checksum = 1;
-            int urgentpointer = 1;
-            int optionsandpadding = 1;
-            int data = 1;
+            IPAddress sourceport = tcpinfo.getSourceIP();
+            IPAddress destinationport = tcpinfo.getDestinationIP();
+            int sequencenumber = tcpinfo.getSequenceNumber();
+            int acknowledgmentnumber = tcpinfo.getAcknowledgmentNumber();
+            int dataoffset = tcpinfo.getDataOffset();
+            int reserved = tcpinfo.getReserved();
+            int flags = tcpinfo.getFlags();
+            int window = tcpinfo.getWindow();//REG_DWORD - 32 bit number
 
-            TCPHeader tcpheader = new TCPHeader(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, reserved,  ecn, controlbits, window, checksum, urgentpointer, optionsandpadding, data);
-            Console.WriteLine(tcpheader);
+            TCPHeader tcpheader = new TCPHeader();
+            byte[] tcpbyte = tcpheader.TCPHeaderConstruct(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, reserved,  flags, window);
+            Console.WriteLine("This is the end byte array.length "+ tcpbyte.Length);
             Console.ReadLine();
                 /*
             TCPProgram<int> TestInt = new TCPProgram<int>(23999);
