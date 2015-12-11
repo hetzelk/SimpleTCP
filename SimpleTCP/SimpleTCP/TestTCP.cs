@@ -25,12 +25,12 @@ namespace TCPConsole
             int acknowledgmentnumber = tcpinfo.getAcknowledgmentNumber();
             int dataoffset = tcpinfo.getDataOffset();
             int reserved = tcpinfo.getReserved();
-            int flags = tcpinfo.getFlags();
+            byte[] flags = tcpinfo.getFlags();
             int window = tcpinfo.getWindow();//REG_DWORD - 32 bit number
 
             TCPHeader tcpheader = new TCPHeader();
             byte[] tcpbyte = tcpheader.TCPHeaderConstruct(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, reserved,  flags, window);
-            Console.WriteLine("This is the end byte array.length "+ tcpbyte.Length);
+            Console.WriteLine("This is the end byte array length   "+ tcpbyte.Length);
             Console.ReadLine();
                 /*
             TCPProgram<int> TestInt = new TCPProgram<int>(23999);

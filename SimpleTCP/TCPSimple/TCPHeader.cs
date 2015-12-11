@@ -21,11 +21,11 @@ namespace TCPProgram
         byte[] Reserved;
         byte[] Flags;
         byte[] Window;
-        byte[] Checksum;
+        byte[] CheckSum;
         byte[] UrgentPointer;
         byte[] OptionsAndPadding;
 
-        public byte[] TCPHeaderConstruct(IPAddress sourceport, IPAddress destinationport, int sequencenumber, int acknowledgmentnumber, int dataoffset, int reserved, int flags, int window)
+        public byte[] TCPHeaderConstruct(IPAddress sourceport, IPAddress destinationport, int sequencenumber, int acknowledgmentnumber, int dataoffset, int reserved, byte[] flags, int window)
         {
             SourcePort = getIPByte(sourceport);//16 bits
             DestinationPort = getIPByte(destinationport); ;//16 bits
@@ -33,15 +33,12 @@ namespace TCPProgram
             AcknowledgmentNumber = BitConverter.GetBytes(acknowledgmentnumber);//32 bits
             DataOffset = BitConverter.GetBytes(dataoffset);//4 bits
             Reserved = BitConverter.GetBytes(reserved);//3 bits
-            Flags = BitConverter.GetBytes(flags);//9 bits
+            Flags = flags;//9 bits
             Window = BitConverter.GetBytes(window);//16 bits
-            int checksum = checkSum();//the sum of the tcp header info
-            int urgentpointer = checkUrgent();//if the urgent pointer flag is true
-            int optionsandpadding = checkOptionsPadding();//if the header needs padding, add padding
 
-            Checksum = BitConverter.GetBytes(checksum);//16 bits
-            UrgentPointer = BitConverter.GetBytes(urgentpointer);//16 bits
-            OptionsAndPadding = BitConverter.GetBytes(optionsandpadding);//0-40 bit
+            
+
+            
 
             checkAll();
 
@@ -50,16 +47,40 @@ namespace TCPProgram
             ListTheBits.Add(DestinationPort);
             ListTheBits.Add(SequenceNumber);
             ListTheBits.Add(AcknowledgmentNumber);
+            ListTheBits.Add(DataOffset);
+            ListTheBits.Add(Reserved);
             ListTheBits.Add(Flags);
             ListTheBits.Add(Window);
-
-            ListTheBits.Add(Checksum);
-            ListTheBits.Add(UrgentPointer);
-            ListTheBits.Add(OptionsAndPadding);
             
             byte[] endbytearray = concatByte(ListTheBits);
-            Console.WriteLine("Length of byte list                 " + endbytearray.Length);
-            return endbytearray;
+            Console.WriteLine("Length of header byte list          " + endbytearray.Length);
+            
+
+            int checksum = checkSum(endbytearray, 0, getLength(ListTheBits));//the sum of the tcp header info
+            bool urgentpointer = checkUrgent(flags);//if the urgent pointer flag is true
+            int optionsandpadding = checkOptionsPadding();//if the header needs padding, add padding
+
+            CheckSum = BitConverter.GetBytes(checksum);//16 bits
+            UrgentPointer = BitConverter.GetBytes(urgentpointer);//16 bits
+            OptionsAndPadding = BitConverter.GetBytes(optionsandpadding);//0-40 bit
+
+            ListTheBits.Add(CheckSum);
+            ListTheBits.Add(UrgentPointer);
+            ListTheBits.Add(OptionsAndPadding);
+            byte[] newendbytearray = concatByte(ListTheBits);
+
+            //Console.WriteLine("Length of end byte list             " + newendbytearray.Length);
+            return newendbytearray;
+        }
+        
+        public int getLength(List<byte[]> bytelist)
+        {
+            int length = 0;
+            foreach (byte[] array in bytelist)
+            {
+                length++;   
+            }
+            return length;
         }
 
         public void checkAll()
@@ -80,22 +101,33 @@ namespace TCPProgram
             Console.WriteLine("Length of byte Flags                " + fsize);
             int wsize = checkSize(Window);
             Console.WriteLine("Length of byte Window               " + wsize);
-            int cssize = checkSize(Checksum);
-            Console.WriteLine("Length of byte Checksum             " + cssize);
-            int upsize = checkSize(UrgentPointer);
-            Console.WriteLine("Length of byte UrgentPointer        " + upsize);
-            int oapsize = checkSize(OptionsAndPadding);
-            Console.WriteLine("Length of byte OptionsAndPadding    " + oapsize);
         }
 
-        public int checkSum()
+        public ushort checkSum(byte[] header, int start, int length)
         {
-            return 1;
+            ushort word16;
+            long sum = 0;
+            for (int i = start; i < (length + start); i += 2)
+            {
+                word16 = (ushort)(((header[i] << 8) & 0xFF00) + (header[i + 1] & 0xFF));
+                sum += (long)word16;
+            }
+
+            while ((sum >> 16) != 0)
+            {
+                sum = (sum & 0xFFFF) + (sum >> 16);
+            }
+
+            sum = ~sum;
+            Console.WriteLine("Checksum = " + (ushort)sum);
+            return (ushort)sum;
         }
 
-        public int checkUrgent()
+        public bool checkUrgent(byte[] allflags)
         {
-            return 1;
+            bool urgent =  BitConverter.ToBoolean(allflags, 3);
+            Console.WriteLine("Boolean if this is urgent or not " + urgent);
+            return urgent;
         }
 
         public int checkOptionsPadding()
@@ -132,7 +164,7 @@ namespace TCPProgram
                 System.Buffer.BlockCopy(array, 0, endbytelist, offset, array.Length);
                 offset += array.Length;
             }
-            Console.WriteLine(Encoding.Default.GetString(endbytelist));
+            Console.WriteLine("Binary Console.WriteLine " + Encoding.Default.GetString(endbytelist));
             return endbytelist;
         }
 
@@ -140,7 +172,7 @@ namespace TCPProgram
         {
             byte[] bytes = new byte[1];
             bits.CopyTo(bytes, 0);
-            Console.WriteLine(bytes[0]);
+            Console.WriteLine("Bytes " + bytes[0]);
             return bytes[0];
         }
         
