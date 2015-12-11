@@ -13,23 +13,31 @@ namespace TCPConsole
 {
     class TestTCP
     {
+        
         public object originalObj;
+        TCPInfo tcpinfo = new TCPInfo();
+        public IPAddress sourceport
+        {  get { return tcpinfo.getSourceIP(); } }
+        public IPAddress destinationport
+        { get { return tcpinfo.getDestinationIP(); } }
+        public int sequencenumber
+        { get { return tcpinfo.getSequenceNumber(); } }
+        public int acknowledgmentnumber
+        { get { return tcpinfo.getAcknowledgmentNumber(); } }
+        public int dataoffset
+        { get { return tcpinfo.getDataOffset(); } }
+        public byte[] reserved
+        { get { return tcpinfo.getReserved(); } }
+        public byte[] flags
+        { get { return tcpinfo.getFlags(); } }
+        public int window
+        { get { return tcpinfo.getWindow(); } }
 
         public static void Main()
-        {
-            TCPInfo tcpinfo = new TCPInfo();
-
-            IPAddress sourceport = tcpinfo.getSourceIP();
-            IPAddress destinationport = tcpinfo.getDestinationIP();
-            int sequencenumber = tcpinfo.getSequenceNumber();
-            int acknowledgmentnumber = tcpinfo.getAcknowledgmentNumber();
-            int dataoffset = tcpinfo.getDataOffset();
-            int reserved = tcpinfo.getReserved();
-            byte[] flags = tcpinfo.getFlags();
-            int window = tcpinfo.getWindow();//REG_DWORD - 32 bit number
-
+        {         
             TCPHeader tcpheader = new TCPHeader();
-            byte[] tcpbyte = tcpheader.TCPHeaderConstruct(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, reserved,  flags, window);
+            TestTCP test = new TestTCP();
+            byte[] tcpbyte = tcpheader.TCPHeaderConstruct(test.sourceport, test.destinationport, test.sequencenumber, test.acknowledgmentnumber, test.dataoffset, test.reserved, test.flags, test.window);
             Console.WriteLine("This is the end byte array length   "+ tcpbyte.Length);
             Console.ReadLine();
                 /*

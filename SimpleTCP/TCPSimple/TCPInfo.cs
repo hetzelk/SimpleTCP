@@ -37,10 +37,20 @@ namespace TCPProgram
             return seq;
         }
 
-        public int getReserved()
+        public byte[] getReserved()
         {
-            int seq = 1;
-            return seq;
+            byte[] r1 = BitConverter.GetBytes(false);
+            byte[] r2 = BitConverter.GetBytes(false);
+            byte[] r3 = BitConverter.GetBytes(false);
+
+            List<byte[]> reservedList = new List<byte[]>();
+            reservedList.Add(r1);
+            reservedList.Add(r2);
+            reservedList.Add(r3);
+
+            byte[] endbytearray = concatByte(reservedList);
+
+            return endbytearray;
         }
 
         public byte[] getFlags()
@@ -81,7 +91,7 @@ namespace TCPProgram
                 System.Buffer.BlockCopy(array, 0, endbytelist, offset, array.Length);
                 offset += array.Length;
             }
-            Console.WriteLine(Encoding.Default.GetString(endbytelist));
+            //Console.WriteLine(Encoding.Default.GetString(endbytelist));
             return endbytelist;
         }
 

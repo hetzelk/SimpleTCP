@@ -25,20 +25,21 @@ namespace TCPProgram
         byte[] UrgentPointer;
         byte[] OptionsAndPadding;
 
-        public byte[] TCPHeaderConstruct(IPAddress sourceport, IPAddress destinationport, int sequencenumber, int acknowledgmentnumber, int dataoffset, int reserved, byte[] flags, int window)
+        public byte[] TCPHeaderConstruct(IPAddress sourceport, IPAddress destinationport, int sequencenumber, int acknowledgmentnumber, int dataoffset, byte[] reserved, byte[] flags, int window)
         {
             SourcePort = getIPByte(sourceport);//16 bits
+            Array.Resize(ref SourcePort, 16);
             DestinationPort = getIPByte(destinationport); ;//16 bits
+            Array.Resize(ref DestinationPort, 16);
             SequenceNumber = BitConverter.GetBytes(sequencenumber);//32 bits
+            Array.Resize(ref SequenceNumber, 32);
             AcknowledgmentNumber = BitConverter.GetBytes(acknowledgmentnumber);//32 bits
+            Array.Resize(ref AcknowledgmentNumber, 32);
             DataOffset = BitConverter.GetBytes(dataoffset);//4 bits
-            Reserved = BitConverter.GetBytes(reserved);//3 bits
+            Reserved = reserved;//3 bits
             Flags = flags;//9 bits
             Window = BitConverter.GetBytes(window);//16 bits
-
-            
-
-            
+            Array.Resize(ref Window, 16);
 
             checkAll();
 
@@ -61,12 +62,16 @@ namespace TCPProgram
             int optionsandpadding = checkOptionsPadding();//if the header needs padding, add padding
 
             CheckSum = BitConverter.GetBytes(checksum);//16 bits
+            Array.Resize(ref CheckSum, 16);
             UrgentPointer = BitConverter.GetBytes(urgentpointer);//16 bits
+            Array.Resize(ref UrgentPointer, 16);
             OptionsAndPadding = BitConverter.GetBytes(optionsandpadding);//0-40 bit
+            Array.Resize(ref OptionsAndPadding, 32);
 
             ListTheBits.Add(CheckSum);
             ListTheBits.Add(UrgentPointer);
             ListTheBits.Add(OptionsAndPadding);
+
             byte[] newendbytearray = concatByte(ListTheBits);
 
             //Console.WriteLine("Length of end byte list             " + newendbytearray.Length);
@@ -164,7 +169,7 @@ namespace TCPProgram
                 System.Buffer.BlockCopy(array, 0, endbytelist, offset, array.Length);
                 offset += array.Length;
             }
-            Console.WriteLine("Binary Console.WriteLine " + Encoding.Default.GetString(endbytelist));
+            //Console.WriteLine("Binary Console.WriteLine " + Encoding.Default.GetString(endbytelist));
             return endbytelist;
         }
 
