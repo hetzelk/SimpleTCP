@@ -66,7 +66,7 @@ namespace TCPProgram
             UrgentPointer = BitConverter.GetBytes(urgentpointer);//16 bits
             Array.Resize(ref UrgentPointer, 16);
             OptionsAndPadding = BitConverter.GetBytes(optionsandpadding);//0-40 bit
-            Array.Resize(ref OptionsAndPadding, 32);
+            Array.Resize(ref OptionsAndPadding, getPadding(endbytearray));
 
             ListTheBits.Add(CheckSum);
             ListTheBits.Add(UrgentPointer);
@@ -76,6 +76,27 @@ namespace TCPProgram
 
             //Console.WriteLine("Length of end byte list             " + newendbytearray.Length);
             return newendbytearray;
+        }
+
+        public int getPadding(byte[] bytecount)
+        {
+            int padding = bytecount.Length;
+
+            if (padding % 32 == 0)
+            {
+                Console.WriteLine("Amount of added padding - 0");
+                return 0;
+            }
+            else
+            {
+                while (padding % 32 != 0)
+                {
+                    padding++;
+                }
+                int endpadding = padding - bytecount.Length;
+                Console.WriteLine("Amount of added padding - " + endpadding);
+                return endpadding;
+            }
         }
         
         public int getLength(List<byte[]> bytelist)
