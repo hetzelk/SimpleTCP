@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +17,15 @@ namespace TCPConsole
 
         public static void Main()
         {
-            ulong sourceport = 1;
-            int destinationport = 1;
+            IPAddress sourceaddress = IPAddress.Parse("12.127.92.98");
+            IPAddress destinationaddress = IPAddress.Parse("12.127.92.98");
+
+            IPAddress sourceport = sourceaddress;
+            IPAddress destinationport = destinationaddress;
             int sequencenumber = 1;
             int acknowledgmentnumber = 1;
             int dataoffset = 1;
+            int reserved = 1;
             int ecn = 1;
             int controlbits = 1;
             int window = 1;
@@ -29,7 +34,7 @@ namespace TCPConsole
             int optionsandpadding = 1;
             int data = 1;
 
-            TCPHeader tcpheader = new TCPHeader(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, ecn, controlbits, window, checksum, urgentpointer, optionsandpadding, data);
+            TCPHeader tcpheader = new TCPHeader(sourceport, destinationport, sequencenumber, acknowledgmentnumber, dataoffset, reserved,  ecn, controlbits, window, checksum, urgentpointer, optionsandpadding, data);
             Console.WriteLine(tcpheader);
             Console.ReadLine();
                 /*
