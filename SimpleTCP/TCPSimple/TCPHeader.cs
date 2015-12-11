@@ -57,9 +57,9 @@ namespace TCPProgram
             Console.WriteLine("Length of header byte list          " + endbytearray.Length);
             
 
-            int checksum = checkSum(endbytearray, 0, getLength(ListTheBits));//the sum of the tcp header info
-            bool urgentpointer = checkUrgent(flags);//if the urgent pointer flag is true
-            int optionsandpadding = checkOptionsPadding();//if the header needs padding, add padding
+            int checksum = checkSum(endbytearray, 0, getLength(ListTheBits));
+            bool urgentpointer = checkUrgent(flags);
+            int optionsandpadding = checkOptionsPadding();
 
             CheckSum = BitConverter.GetBytes(checksum);//16 bits
             Array.Resize(ref CheckSum, 16);
